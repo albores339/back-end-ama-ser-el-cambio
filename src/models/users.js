@@ -25,7 +25,7 @@ const userSchema = new mongoose.Schema({
     minlength: [6, 'La contraseña debe tener al menos 6 caracteres'], // Longitud mínima de contraseña
   },
   phone: {
-    type: String,
+    type: Number,
     required: [true, 'El número de teléfono es obligatorio'],
     unique: true, // No permite números de teléfono duplicados
     match: [ // Expresión regular para validar formato de teléfono (10 dígitos)
