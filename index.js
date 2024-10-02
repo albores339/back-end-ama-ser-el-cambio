@@ -12,29 +12,21 @@ connectDB();
 const app = express();
 
 const corsOptions = {
-  origin: ['http://localhost:3000', 'https://front-ama-ser-el-cambio.vercel.app'],
-  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
-  credentials: true,
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  preflightContinue: false,
-  optionsSuccessStatus: 204,
+  origin: ['http://localhost:3000', 'https://front-ama-ser-el-cambio.vercel.app'], // Orígenes permitidos
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS', // Métodos permitidos
+  credentials: true, // Permitir envío de cookies o credenciales
+  allowedHeaders: ['Content-Type', 'Authorization'], // Encabezados permitidos
+  preflightContinue: false, // No continuar después de la solicitud preflight
+  optionsSuccessStatus: 204, // Estado de éxito para preflight
 };
 
 // Habilitar CORS con las opciones configuradas
 app.use(cors(corsOptions));
 
-// Manejar las solicitudes preflight (OPTIONS)
+// Manejar las solicitudes preflight (OPTIONS) para todas las rutas
 app.options('*', cors(corsOptions));
 
-// Esto es opcional: Middleware para establecer manualmente los encabezados necesarios en la respuesta
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', 'https://front-ama-ser-el-cambio.vercel.app');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
-  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-  next();
-});
-
-
+// Middleware para analizar cuerpos de solicitud JSON
 app.use(express.json());
 
 // Rutas
