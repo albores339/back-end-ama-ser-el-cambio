@@ -1,7 +1,6 @@
 const Message = require('../models/message');
 
 // Crear un nuevo mensaje
-// Crear un nuevo mensaje
 const createMessage = async (req, res) => {
   try {
     const { nombre, email, mensaje } = req.body;
@@ -33,4 +32,24 @@ const getMessages = async (req, res) => {
   }
 };
 
-module.exports = { createMessage, getMessages };
+// Eliminar un mensaje por ID
+const deleteMessage = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    // Verificar si el mensaje existe
+    const message = await Message.findById(id);
+    if (!message) {
+      return res.status(404).json({ message: 'Mensaje no encontrado' });
+    }
+
+    // Eliminar el mensaje
+    await Message.findByIdAndDelete(id);
+    
+    res.status(200).json({ message: 'Mensaje eliminado correctamente' });
+  } catch (error) {
+    res.status(500).json({ message: 'Error al eliminar el mensaje' });
+  }
+};
+
+module.exports = { createMessage, getMessages, deleteMessage };
