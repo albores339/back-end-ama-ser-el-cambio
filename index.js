@@ -11,19 +11,29 @@ connectDB();
 
 const app = express();
 
-// Configuración de CORS para permitir accesos desde el frontend en Vercel y localhost
 const corsOptions = {
-  origin: ['http://localhost:3000', 'https://front-ama-ser-el-cambio.vercel.app'], // Permitir localhost y Vercel
+  origin: ['http://localhost:3000', 'https://front-ama-ser-el-cambio.vercel.app'],
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
-  credentials: true, // Permitir envío de cookies si es necesario
-  allowedHeaders: ['Content-Type', 'Authorization'] // Asegúrate de permitir los encabezados necesarios
+  credentials: true,
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  preflightContinue: false,
+  optionsSuccessStatus: 204,
 };
 
 // Habilitar CORS con las opciones configuradas
 app.use(cors(corsOptions));
 
-// Middleware para solicitudes preflight (OPTIONS)
-app.options('*', cors(corsOptions)); // Permitir todas las rutas con preflight (OPTIONS)
+// Manejar las solicitudes preflight (OPTIONS)
+app.options('*', cors(corsOptions));
+
+// Esto es opcional: Middleware para establecer manualmente los encabezados necesarios en la respuesta
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', 'https://front-ama-ser-el-cambio.vercel.app');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  next();
+});
+
 
 app.use(express.json());
 
