@@ -33,6 +33,8 @@ app.use(express.json());
 app.use('/api/auth', require('./src/routes/auth'));
 app.use('/api/contact', require('./src/routes/contact'));
 app.use('/api/users', require('./src/routes/users'));
+app.use('/api/donations', require('./src/routes/donations'));
+app.use('/api/expenses', require('./src/routes/expenses'));
 
 const PORT = process.env.PORT || 5000;
 
