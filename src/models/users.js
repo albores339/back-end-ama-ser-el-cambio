@@ -38,6 +38,9 @@ const userSchema = new mongoose.Schema({
     enum: ['user', 'admin'], // Solo permite estos dos valores
     default: 'user', // Valor por defecto
   },
+  fcmToken: { 
+    type: String 
+  }, // Token para FCM
 });
 
 // Método para hashear la contraseña antes de guardar

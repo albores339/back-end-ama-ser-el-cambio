@@ -12,7 +12,7 @@ connectDB();
 const app = express();
 
 const corsOptions = {
-  origin: ['http://localhost:3000', 'https://front-ama-ser-el-cambio.vercel.app'], // Orígenes permitidos
+  origin: ['http://localhost:3000', 'https://front-ama-ser-el-cambio.vercel.app', 'https://www.amaserelcambio.org'], // Orígenes permitidos
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS', // Métodos permitidos
   credentials: true, // Permitir envío de cookies o credenciales
   allowedHeaders: ['Content-Type', 'Authorization'], // Encabezados permitidos
@@ -35,6 +35,8 @@ app.use('/api/contact', require('./src/routes/contact'));
 app.use('/api/users', require('./src/routes/users'));
 app.use('/api/donations', require('./src/routes/donations'));
 app.use('/api/expenses', require('./src/routes/expenses'));
+app.use('/api/avisos', require('./src/routes/avisos'));
+app.use('/api/save-token', require('./src/routes/firebasetoken'))
 
 const PORT = process.env.PORT || 5000;
 
